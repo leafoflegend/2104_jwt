@@ -1,3 +1,5 @@
+const dotenv = require('dotenv');
+dotenv.config();
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const apiRouter = require('./api/index');
@@ -16,7 +18,10 @@ app.use((req, res, next) => {
 
         const validatedToken = jwt.verify(token, SECRET);
 
-        console.log(`Current Requester is a validated user. Username: ${validatedToken.username}`);
+        req.user = {
+            id: validatedToken.id,
+            username: validatedToken.username,
+        };
     }
 
     console.log(req.path);

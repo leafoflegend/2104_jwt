@@ -49,4 +49,21 @@ apiRouter.post('/login', async (req, res) => {
     }
 });
 
+apiRouter.get('/whoami', (req, res) => {
+    if (req.user) {
+        res.send(`
+            <html>
+                <head>
+                <title>Who Are You?</title>
+                </head>
+                <body>
+                    <h1>${req.user.username}</h1>
+                </body>
+            </html>
+        `);
+    } else {
+        res.sendStatus(401);
+    }
+});
+
 module.exports = apiRouter;
